@@ -733,6 +733,34 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
 .photo-actions button:hover{border-color:#74a78b;background:#f0f7f1}
 .photo-editor .photo-help{font-size:9px;color:#788b7d;line-height:1.55;margin:9px 0}
 
+
+/* Background remover: local, editable colour-based cutout */
+.remove-bg-trigger{display:flex;align-items:center;justify-content:center;width:100%;border:1px solid #91bba4;background:linear-gradient(115deg,#e2f3e9,#f3fbf6);color:#265846;border-radius:8px;padding:11px 12px;margin:10px 0 6px;font-size:11px;font-weight:700;cursor:pointer}
+.remove-bg-trigger:hover{background:#d4ecdd;border-color:#4c9772}
+.remove-bg-restore{display:block;margin:5px auto 10px;background:transparent;border:0;text-decoration:underline;color:#576d60;font-size:10px;cursor:pointer}
+.remove-bg-dialog{width:min(920px,calc(100vw - 24px));max-width:920px;max-height:min(94vh,980px);overflow:auto;border:1px solid #d0dcd3;border-radius:18px;padding:20px 22px;color:#294939;background:#fff;box-shadow:0 14px 50px #122d2636}
+.remove-bg-dialog::backdrop{background:#14241aca;backdrop-filter:blur(4px)}
+.remove-bg-dialog h2{font-size:20px;font-weight:750;margin:0 0 5px;color:#224536}
+.remove-bg-dialog p{font-size:11px;line-height:1.55;margin:0 0 12px;color:#637b6c}
+.remove-bg-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.remove-bg-preview-block{min-width:0;display:flex;flex-direction:column;gap:7px}
+.remove-bg-preview-block>strong{font-size:12px;color:#345e4c}
+.remove-bg-preview{height:300px;display:grid;place-items:center;min-width:0;overflow:hidden;border:1px solid #d4ded8;border-radius:10px;background-color:#fff;background-image:linear-gradient(45deg,#e8ece9 25%,transparent 25%),linear-gradient(-45deg,#e8ece9 25%,transparent 25%),linear-gradient(45deg,transparent 75%,#e8ece9 75%),linear-gradient(-45deg,transparent 75%,#e8ece9 75%);background-size:22px 22px;background-position:0 0,0 11px,11px -11px,-11px 0}
+.remove-bg-preview canvas{max-width:100%;max-height:100%;object-fit:contain;display:block}
+#removeBgBefore{cursor:crosshair;touch-action:manipulation}
+.remove-bg-controls{display:flex;gap:18px;align-items:center;flex-wrap:wrap;margin-top:15px;font-size:12px}
+.remove-bg-controls label{display:flex;align-items:center;gap:6px;cursor:pointer}
+.remove-bg-sliders{display:grid;grid-template-columns:1fr 1fr;gap:10px 16px;margin:14px 0 8px}
+.remove-bg-sliders label{display:flex;flex-direction:column;gap:6px;font-size:11px;color:#385848}
+.remove-bg-sliders input{width:100%;accent-color:#3c8360}
+.remove-bg-tips{font-size:10px!important;color:#667b71!important;margin:8px 0!important}
+.remove-bg-message{min-height:16px;color:#647f6e;font-size:10px;margin:4px 0 13px}
+.remove-bg-actions{display:flex;align-items:center;justify-content:flex-end;gap:9px;flex-wrap:wrap}
+.remove-bg-actions button{border:1px solid #ccdcd0;border-radius:8px;padding:10px 15px;background:#fff;color:#234734;font-weight:600;cursor:pointer}
+.remove-bg-actions button.primary{background:#326b4e;border-color:#326b4e;color:white}
+.remove-bg-actions button:disabled{opacity:.4;cursor:not-allowed}
+@media(max-width:620px){.remove-bg-dialog{padding:14px}.remove-bg-grid{grid-template-columns:1fr;gap:10px}.remove-bg-preview{height:205px}.remove-bg-sliders{grid-template-columns:1fr}.remove-bg-dialog h2{font-size:17px}}
+
 </style>
 </head>
 <body>
@@ -803,8 +831,28 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
 <input id="imageInput" type="file" accept="image/png,image/jpeg,image/webp" hidden>
 <input id="projectInput" type="file" accept=".json,.diploma.json,application/json" hidden>
 <div id="toast" role="status" aria-live="polite"></div>
-<dialog id="helpDialog"><button class="dialog-close" data-close aria-label="Закрыть">×</button><span class="eyebrow">ВСЁ ПРОСТО</span><h2>От идеи до диплома</h2><ol><li>Выберите шаблон или загрузите свою картинку в разделе «Лист и фон».</li><li>Добавьте текст, картинку, линию, фигуру или декоративную подложку. Выберите элемент на листе или в списке слоёв.</li><li>Для читаемости на ярком фоне используйте кнопку «Текст с подложкой» или стили в настройках текста. Картинки можно двигать, изменять за углы и растягивать за боковые точки, а также настраивать цвет и прозрачность.</li><li>Скачайте PDF для печати. Сохраните проект, чтобы позже открыть его и продолжить работу.</li></ol><p class="subtle">PDF — один лист A4, 300 dpi. Файл проекта .diploma.json содержит фон, добавленные картинки и все редактируемые элементы.</p><div class="shortcuts"><span><kbd>Ctrl / ⌘</kbd> + <kbd>Z</kbd> отменить</span><span><kbd>Ctrl / ⌘</kbd> + <kbd>S</kbd> проект</span><span><kbd>Ctrl / ⌘</kbd> + <kbd>D</kbd> копия</span><span><kbd>Delete</kbd> удалить</span><span><kbd>↑ ↓ ← →</kbd> переместить</span><span><kbd>Shift</kbd> + стрелка: 10 px</span></div><button class="btn primary full" data-close>Начать творить</button></dialog>
+<dialog id="helpDialog"><button class="dialog-close" data-close aria-label="Закрыть">×</button><span class="eyebrow">ВСЁ ПРОСТО</span><h2>От идеи до диплома</h2><ol><li>Выберите шаблон или загрузите свою картинку в разделе «Лист и фон».</li><li>Добавьте текст, картинку, линию, фигуру или декоративную подложку. Выберите элемент на листе или в списке слоёв.</li><li>Для читаемости на ярком фоне используйте кнопку «Текст с подложкой» или стили в настройках текста. Картинки можно двигать, изменять за углы и растягивать за боковые точки, настраивать цвет и прозрачность, а также удалять однотонный фон.</li><li>Скачайте PDF для печати. Сохраните проект, чтобы позже открыть его и продолжить работу.</li></ol><p class="subtle">PDF — один лист A4, 300 dpi. Файл проекта .diploma.json содержит фон, добавленные картинки и все редактируемые элементы.</p><div class="shortcuts"><span><kbd>Ctrl / ⌘</kbd> + <kbd>Z</kbd> отменить</span><span><kbd>Ctrl / ⌘</kbd> + <kbd>S</kbd> проект</span><span><kbd>Ctrl / ⌘</kbd> + <kbd>D</kbd> копия</span><span><kbd>Delete</kbd> удалить</span><span><kbd>↑ ↓ ← →</kbd> переместить</span><span><kbd>Shift</kbd> + стрелка: 10 px</span></div><button class="btn primary full" data-close>Начать творить</button></dialog>
 <dialog id="confirmDialog"><h2 id="confirmTitle">Создать пустой документ?</h2><p id="confirmMessage">Все элементы и фон будут удалены. Сохраните проект в файл, если хотите вернуться к нему.</p><div class="dialog-actions"><button class="btn" id="confirmCancel">Отмена</button><button class="btn primary" id="confirmAccept">Создать</button></div></dialog>
+
+<dialog id="removeBgDialog" class="remove-bg-dialog" aria-labelledby="removeBgTitle">
+  <h2 id="removeBgTitle">Удаление фона картинки</h2>
+  <p>Кликните на фон в левой картинке, если автоматический выбор ошибся. Справа увидите результат с прозрачностью.</p>
+  <div class="remove-bg-grid">
+    <div class="remove-bg-preview-block"><strong>Исходная картинка — нажмите на фон</strong><div class="remove-bg-preview"><canvas id="removeBgBefore" aria-label="Нажмите на цвет фона исходной картинки"></canvas></div></div>
+    <div class="remove-bg-preview-block"><strong>После удаления — прозрачный фон</strong><div class="remove-bg-preview"><canvas id="removeBgAfter" aria-label="Результат удаления фона"></canvas></div></div>
+  </div>
+  <div class="remove-bg-controls" role="group" aria-label="Способ выбора фона">
+    <label><input type="radio" name="removeBgMode" value="auto" checked> Автоматически по краям</label>
+    <label><input type="radio" name="removeBgMode" value="pick"> Выбрать цвет щелчком</label>
+  </div>
+  <div class="remove-bg-sliders">
+    <label>Чувствительность: <output id="removeBgToleranceValue">24</output><input id="removeBgTolerance" type="range" min="0" max="100" step="1" value="24"></label>
+    <label>Смягчение краёв: <output id="removeBgFeatherValue">2</output> px<input id="removeBgFeather" type="range" min="0" max="6" step="1" value="2"></label>
+  </div>
+  <p class="remove-bg-tips">Лучше всего работает на белом, однотонном и сравнительно ровном фоне. На сложном пейзаже или среди волос может потребоваться специальное нейросетевое удаление.</p>
+  <div id="removeBgMessage" class="remove-bg-message" role="status" aria-live="polite"></div>
+  <div class="remove-bg-actions"><button id="removeBgCancel" type="button">Отмена</button><button id="removeBgApply" class="primary" type="button">Применить удаление</button></div>
+</dialog>
 <script>
 (function () {
   'use strict';
@@ -1011,7 +1059,7 @@ function validate(data){
   const type=choice(o.type,['text','image','line','rect','roundRect','pill','ellipse','ribbon','cloud','speech','ticket','diamond','marker','doubleline','dashedline','wave','bracket'],'text');
   let id=typeof o.id==='string'&&/^[\w-]{1,80}$/.test(o.id)?o.id:uid();if(ids.has(id))id=uid();ids.add(id);
   const base={id,type,x:num(o.x,100,-4000,4000),y:num(o.y,100,-4000,4000),w:num(o.w,350,12,4000),color:color(o.color,'#284b3e'),opacity:num(o.opacity,1,0,1),rotation:num(o.rotation,0,-180,180),hidden:bool(o.hidden),locked:bool(o.locked)};
-  return type==='image'?{...base,src:(()=>{const src=str(o.src,'',9000000);if(!/^data:image\/(png|jpeg|webp);base64,[A-Za-z0-9+/=]+$/.test(src))throw Error('Изображение в проекте повреждено.');return src;})(),name:str(o.name,'Картинка',200),h:num(o.h,200,12,4000),brightness:num(o.brightness,100,0,300),contrast:num(o.contrast,100,0,300),saturation:num(o.saturation,100,0,300),blur:num(o.blur,0,0,25),grayscale:num(o.grayscale,0,0,100),sepia:num(o.sepia,0,0,100),hue:num(o.hue,0,-180,180),flipX:bool(o.flipX),flipY:bool(o.flipY)}:
+  return type==='image'?{...base,src:(()=>{const src=str(o.src,'',9000000);if(!/^data:image\/(png|jpeg|webp);base64,[A-Za-z0-9+/=]+$/.test(src))throw Error('Изображение в проекте повреждено.');return src;})(),originalSrc:(()=>{if(!o.originalSrc)return null;const original=str(o.originalSrc,'',9000000);if(!/^data:image\/(png|jpeg|webp);base64,[A-Za-z0-9+/=]+$/.test(original))throw Error('Оригинал картинки повреждён.');return original;})(),name:str(o.name,'Картинка',200),h:num(o.h,200,12,4000),brightness:num(o.brightness,100,0,300),contrast:num(o.contrast,100,0,300),saturation:num(o.saturation,100,0,300),blur:num(o.blur,0,0,25),grayscale:num(o.grayscale,0,0,100),sepia:num(o.sepia,0,0,100),hue:num(o.hue,0,-180,180),flipX:bool(o.flipX),flipY:bool(o.flipY)}:
   type==='text'?{...base,text:str(o.text,'Текст'),font:choice(o.font,FONTS,'Cormorant Garamond'),fontSize:num(o.fontSize,40,6,400),bold:bool(o.bold),italic:bool(o.italic),underline:bool(o.underline),align:choice(o.align,['left','center','right'],'center'),lineHeight:num(o.lineHeight,1.25,.8,3),letterSpacing:num(o.letterSpacing,0,-2,30),backdrop:choice(o.backdrop,BACKDROPS,'none'),backdropColor:color(o.backdropColor,'#fffaf1'),backdropBorder:color(o.backdropBorder,'#b4a47c'),backdropOpacity:num(o.backdropOpacity,.9,0,1),backdropPadding:num(o.backdropPadding,13,0,100)}:{...base,h:num(o.h,type==='line'?14:100,4,4000),thickness:num(o.thickness,2,.5,30),fill:color(o.fill,'#e9e1ca'),filled:bool(o.filled),radius:num(o.radius,18,0,400)};
  });
  return {format:'list-certificate',version:1,title:str(data.title,'Мой диплом',100),orientation:choice(data.orientation,['portrait','landscape'],'landscape'),page:{color:color(p.color,'#fffdf8'),design:choice(p.design,DESIGN_IDS,'blank'),background,fit:choice(p.fit,['contain','cover'],'contain'),backgroundOpacity:num(p.backgroundOpacity,1,0,1)},objects};
@@ -1407,16 +1455,153 @@ function field(label,content){return `<label class="field">${label}${content}</l
 function numberInput(prop,value,min,max,step=1){return `<input type="number" data-prop="${prop}" value="${Math.round(value*100)/100}" min="${min}" max="${max}" step="${step}">`;}
 function colorInput(prop,value){return `<div class="color-control"><input type="color" data-prop="${prop}" value="${value}" aria-label="${prop==='fill'?'Цвет заливки':'Цвет элемента'}"><input type="text" data-hex="${prop}" value="${value.toUpperCase()}" pattern="#[0-9a-fA-F]{6}" maxlength="7" aria-label="HEX-код цвета"></div>`;}
 
+
+// Remove solid/near-solid backgrounds locally. No remote images or uploaded files leave the device.
+let removeBgSession=null,removeBgPreviewRequest=0,removeBgRedrawTimer=0;
+function removeBgSettings(){return {mode:document.querySelector('input[name="removeBgMode"]:checked').value,tolerance:Number($('#removeBgTolerance').value),feather:Number($('#removeBgFeather').value),u:removeBgSession.u,v:removeBgSession.v};}
+function prepareRemoveBgCanvas(image,maxSide){
+ const scale=Math.min(1,maxSide/Math.max(image.naturalWidth,image.naturalHeight));
+ const c=document.createElement('canvas');c.width=Math.max(1,Math.round(image.naturalWidth*scale));c.height=Math.max(1,Math.round(image.naturalHeight*scale));
+ const cx=c.getContext('2d',{willReadFrequently:true});cx.imageSmoothingQuality='high';cx.drawImage(image,0,0,c.width,c.height);return c;
+}
+function removeBgImageData(imageData,settings){
+ const w=imageData.width,h=imageData.height,data=imageData.data,n=w*h;
+ const mask=new Uint8Array(n),tested=new Uint8Array(n),queue=new Int32Array(n);
+ const tol=5+1.6*settings.tolerance,limit=tol*tol;
+ const picked=(settings.mode==='pick');
+ const backgroundSamples=[];
+ function pixelAt(x,y){const i=(y*w+x)*4;return [data[i],data[i+1],data[i+2]];}
+ if(picked){const x=Math.min(w-1,Math.max(0,Math.floor(settings.u*w))),y=Math.min(h-1,Math.max(0,Math.floor(settings.v*h)));backgroundSamples.push(pixelAt(x,y));}
+ else{
+  const coords=[[0,0],[w-1,0],[0,h-1],[w-1,h-1],[Math.floor(w*.5),0],[Math.floor(w*.5),h-1],[0,Math.floor(h*.5)],[w-1,Math.floor(h*.5)]];
+  const samples=coords.map(([x,y])=>pixelAt(x,y));
+  let best=0,bestCount=-1;
+  for(let i=0;i<samples.length;i++){let count=0;for(let j=0;j<samples.length;j++)if(bgColorDistance(samples[i],samples[j])<Math.max(22,tol*1.35)**2)count++;if(count>bestCount){best=i;bestCount=count;}}
+  // Use the dominant outer colour only, excluding any corner occupied by the subject.
+  const main=samples[best];
+  for(const sample of samples)if(bgColorDistance(sample,main)<Math.max(22,tol*1.35)**2)backgroundSamples.push(sample);
+ }
+ function similar(idx){
+  const off=idx*4;if(data[off+3]<12)return true;
+  const r=data[off],g=data[off+1],b=data[off+2];
+  for(const s of backgroundSamples){const dr=r-s[0],dg=g-s[1],db=b-s[2];if(dr*dr*.30+dg*dg*.59+db*db*.11<=limit)return true;}
+  return false;
+ }
+ let head=0,tail=0;
+ function seed(index){if(!tested[index]){tested[index]=1;if(similar(index)){mask[index]=1;queue[tail++]=index;}}}
+ if(picked)seed(Math.min(n-1,Math.max(0,Math.floor(settings.v*h)*w+Math.floor(settings.u*w))));
+ else{for(let x=0;x<w;x++){seed(x);seed((h-1)*w+x);}for(let y=0;y<h;y++){seed(y*w);seed(y*w+w-1);}}
+ while(head<tail){
+  const p=queue[head++],x=p%w;
+  if(x>0)seed(p-1);
+  if(x<w-1)seed(p+1);
+  if(p>=w)seed(p-w);
+  if(p<n-w)seed(p+w);
+ }
+ // Soften only the foreground pixels immediately next to the cutout boundary.
+ const feather=Math.round(settings.feather);
+ const alphaLayers=new Uint8Array(n);
+ if(feather>0&&tail>0){
+  let layerHead=0,layerTail=tail;
+  for(let d=1;d<=feather;d++){
+   const end=layerTail;
+   for(;layerHead<end;layerHead++){
+    const p=queue[layerHead],x=p%w;
+    const neighbors=[x>0?p-1:-1,x<w-1?p+1:-1,p>=w?p-w:-1,p<n-w?p+w:-1];
+    for(const q of neighbors){if(q>=0&&!mask[q]&&!alphaLayers[q]){alphaLayers[q]=d;queue[layerTail++]=q;}}
+   }
+  }
+ }
+ const out=new Uint8ClampedArray(data);
+ for(let i=0;i<n;i++){
+  const a=i*4+3;
+  if(mask[i])out[a]=0;
+  else if(alphaLayers[i])out[a]=Math.round(out[a]*(alphaLayers[i]/(feather+1)));
+ }
+ return {imageData:new ImageData(out,w,h),fraction:tail?head?mask.reduce((a,b)=>a+b,0)/n:0:0};
+}
+function bgColorDistance(a,b){const dr=a[0]-b[0],dg=a[1]-b[1],db=a[2]-b[2];return .30*dr*dr+.59*dg*dg+.11*db*db;}
+function createRemoveBgCanvas(image,maxSide,settings){
+ const canvas=prepareRemoveBgCanvas(image,maxSide),context=canvas.getContext('2d',{willReadFrequently:true});
+ const processed=removeBgImageData(context.getImageData(0,0,canvas.width,canvas.height),settings);
+ context.putImageData(processed.imageData,0,0);
+ return {canvas,fraction:processed.fraction};
+}
+function updateRemoveBgPreview(){
+ if(!removeBgSession)return;
+ const session=removeBgSession;
+ clearTimeout(removeBgRedrawTimer);
+ const request=++removeBgPreviewRequest;
+ removeBgRedrawTimer=setTimeout(()=>{
+  if(request!==removeBgPreviewRequest||removeBgSession!==session)return;
+  const settings=removeBgSettings();
+  const processed=removeBgImageData(session.previewImage,settings);
+  const canvas=$('#removeBgAfter');canvas.width=session.previewImage.width;canvas.height=session.previewImage.height;
+  canvas.getContext('2d').putImageData(processed.imageData,0,0);
+  const percent=Math.round(processed.fraction*100);
+  $('#removeBgMessage').textContent=percent>95?'Похоже, удаляется почти вся картинка. Уменьшите чувствительность или выберите другой цвет.':percent<1?'Почти ничего не удалено: выберите фон нажатием слева или увеличьте чувствительность.':'Фон удалён примерно с '+percent+'% площади. Можно применить результат.';
+ },65);
+}
+async function openRemoveBgDialog(o){
+ if(busy||o.locked)return;
+ try{
+  const source=o.originalSrc||o.src,image=await decodeImage(source);
+  if(!state.objects.includes(o)||o.locked)return;
+  const before=prepareRemoveBgCanvas(image,650),canvas=$('#removeBgBefore');
+  canvas.width=before.width;canvas.height=before.height;canvas.getContext('2d').drawImage(before,0,0);
+  removeBgSession={id:o.id,image,source,previewImage:before.getContext('2d',{willReadFrequently:true}).getImageData(0,0,before.width,before.height),u:.02,v:.02};
+  document.querySelector('input[name="removeBgMode"][value="auto"]').checked=true;
+  $('#removeBgTolerance').value=24;$('#removeBgFeather').value=2;
+  $('#removeBgToleranceValue').textContent='24';$('#removeBgFeatherValue').textContent='2';
+  $('#removeBgApply').disabled=false;$('#removeBgApply').textContent='Применить удаление';
+  $('#removeBgDialog').showModal();updateRemoveBgPreview();
+ }catch(e){toast('Не удалось открыть удаление фона: '+(e.message||'неизвестная ошибка'));}
+}
+function closeRemoveBgDialog(){clearTimeout(removeBgRedrawTimer);removeBgPreviewRequest++;removeBgSession=null;const dialog=$('#removeBgDialog');if(dialog.open)dialog.close();}
+$('#removeBgCancel').onclick=closeRemoveBgDialog;
+$('#removeBgDialog').addEventListener('cancel',e=>{e.preventDefault();closeRemoveBgDialog();});
+$('#removeBgBefore').addEventListener('click',e=>{
+ if(!removeBgSession)return;
+ const rect=e.target.getBoundingClientRect();removeBgSession.u=C.clamp((e.clientX-rect.left)/rect.width,0,.9999);removeBgSession.v=C.clamp((e.clientY-rect.top)/rect.height,0,.9999);
+ document.querySelector('input[name="removeBgMode"][value="pick"]').checked=true;updateRemoveBgPreview();
+});
+document.querySelectorAll('input[name="removeBgMode"]').forEach(el=>el.addEventListener('change',updateRemoveBgPreview));
+for(const name of ['Tolerance','Feather']){$('#removeBg'+name).addEventListener('input',e=>{$('#removeBg'+name+'Value').textContent=e.target.value;updateRemoveBgPreview();});}
+$('#removeBgApply').onclick=async()=>{
+ const session=removeBgSession;if(!session||busy)return;
+ const o=state.objects.find(x=>x.id===session.id);if(!o||o.locked)return;
+ busy=true;$('#removeBgApply').disabled=true;$('#removeBgApply').textContent='Обрабатываем…';
+ try{
+  // Keep final transparent images within the supported size of saved projects.
+  const settings=removeBgSettings();let src=null;
+  for(const side of [2400,1900,1500,1100]){
+   const result=createRemoveBgCanvas(session.image,side,settings);
+   if(result.fraction<.001)throw Error('Не удалось выделить фон. Нажмите на его цвет или повысьте чувствительность.');
+   src=result.canvas.toDataURL('image/webp',.96);
+   result.canvas.width=result.canvas.height=1;
+   if(src.length<=9000000)break;
+  }
+  if(!src||src.length>9000000)throw Error('Получилась слишком большая картинка. Попробуйте изображение поменьше.');
+  const pic=await decodeImage(src);objectImageCache.set(src,pic);
+  change(()=>{o.originalSrc=session.source;o.src=src;});
+  closeRemoveBgDialog();toast('Фон картинки удалён. Можно вернуть исходное изображение.');
+ }catch(e){toast(e.message||'Не удалось удалить фон.');}
+ finally{busy=false;if(removeBgSession){$('#removeBgApply').disabled=false;$('#removeBgApply').textContent='Применить удаление';}}
+};
+
 function renderImageProperties(host,o){
  const slider=(key,name,min,max,unit='%',step=1)=>`<div class="photo-edit-row"><span>${name}</span><output data-image-output="${key}">${Math.round((key==='opacity'?o.opacity*100:o[key])*10)/10}${unit}</output></div><input type="range" data-image-prop="${key}" min="${min}" max="${max}" step="${step}" value="${key==='opacity'?Math.round(o.opacity*100):o[key]}" aria-label="${name}">`;
  host.innerHTML=`<div class="section-head"><h2>Редактирование картинки</h2><div class="property-actions"><button class="icon-btn" data-action="duplicate" title="Дублировать">${icon('copy')}</button><button class="icon-btn" data-action="delete" title="Удалить">${icon('trash')}</button></div></div>`+
  `<div class="photo-editor"><div class="photo-name" title="${esc(o.name)}">▧ ${esc(o.name)}</div><p>Выделите картинку на листе и потяните за углы для изменения размера с сохранением пропорций. Боковые точки позволяют растягивать её по одной оси.</p>`+
+ `<button type="button" class="remove-bg-trigger" id="openRemoveBg">✂ Удалить фон картинки</button>${o.originalSrc?'<button type="button" class="remove-bg-restore" id="restoreRemoveBg">↶ Вернуть исходный фон</button>':''}`+
  slider('opacity','Непрозрачность',0,100)+slider('brightness','Яркость',0,250)+slider('contrast','Контраст',0,250)+slider('saturation','Насыщенность',0,250)+slider('blur','Размытие',0,16,' px',.5)+slider('grayscale','Чёрно-белое',0,100)+slider('sepia','Сепия',0,100)+slider('hue','Сдвиг оттенка',-180,180,'°')+
  `<div class="photo-flips"><label><input type="checkbox" data-image-prop="flipX" ${o.flipX?'checked':''}> Отразить ↔</label><label><input type="checkbox" data-image-prop="flipY" ${o.flipY?'checked':''}> Отразить ↕</label></div>`+
  `<div class="photo-actions"><button type="button" data-action="resetImage">Сбросить эффекты</button><button type="button" data-action="sendback">Под весь текст</button></div>`+
  `<details class="advanced-settings"><summary>Точные размеры, позиция и поворот</summary><div class="row">${field('Ширина, px',numberInput('w',o.w,12,4000))}${field('Высота, px',numberInput('h',o.h,12,4000))}</div><div class="row">${field('Позиция X',numberInput('x',o.x,-4000,4000))}${field('Позиция Y',numberInput('y',o.y,-4000,4000))}</div>${field('Поворот, °',numberInput('rotation',o.rotation,-180,180))}</details>`+
  `<p class="photo-help">Все изменения применяются сразу и сохраняются в PDF и файле проекта. Оригинал не изменяется.</p></div>`+
  `<div class="property-bottom"><button class="small-button" data-action="center">По центру листа</button><button class="small-button" data-action="raise">↑ Вперёд</button><button class="small-button" data-action="lower">↓ Назад</button><button class="small-button ${o.locked?'active':''}" data-action="lock">${icon('lock')}${o.locked?'Разблокировать':'Закрепить'}</button></div>`;
+ host.querySelector('#openRemoveBg').onclick=()=>openRemoveBgDialog(o);
+ const restore=host.querySelector('#restoreRemoveBg');if(restore){restore.disabled=o.locked;restore.onclick=()=>{if(o.locked)return;const src=o.originalSrc;change(()=>{o.src=src;o.originalSrc=null;});toast('Исходная картинка восстановлена.');};}
  host.querySelectorAll('[data-image-prop]').forEach(el=>{
    el.disabled=o.locked;el.addEventListener('input',()=>{const key=el.dataset.imageProp,value=el.type==='checkbox'?el.checked:Number(el.value);edit(()=>o[key]=key==='opacity'?value/100:value);const output=host.querySelector(`[data-image-output="${key}"]`);if(output)output.textContent=value+(key==='blur'?' px':key==='hue'?'°':'%');});
    el.addEventListener('change',finishPending);
