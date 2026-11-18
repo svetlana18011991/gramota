@@ -895,6 +895,37 @@ button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-vis
 .export-sidebar-tip{padding:9px 11px;background:#eff7fb;border:1px solid #e1edf2;border-radius:10px;line-height:1.6}
 @media(max-width:700px){.top-actions .export-menu-toggle{min-height:36px;padding:0 12px;gap:6px}.top-actions .export-menu-toggle span{font-size:10px!important}.export-menu{top:calc(100% + 7px);width:min(318px,calc(100vw - 24px))}}
 @media(prefers-reduced-motion:reduce){.export-menu-toggle .export-chevron,.top-actions .export-option{transition:none}}
+
+/* Easy mail-merge wizard — separate from long editor sidebar. */
+.bulk-easy{width:min(1000px,calc(100vw - 20px));color:#314639}
+.bulk-easy-intro{font-size:13px!important;color:#56675a!important;margin:0 0 15px!important}
+.bulk-easy-step{display:flex;align-items:flex-start;gap:12px;margin:12px 0 16px}
+.bulk-easy-workarea{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:20px;align-items:start}
+.bulk-easy-workarea>.bulk-easy-step{min-width:0}
+.bulk-easy-number{background:#e2f1ed;color:#247e72;border-radius:12px;min-width:34px;height:34px;display:grid;place-items:center;font-size:17px}
+.bulk-easy-step-content{min-width:0;flex:1}
+.bulk-easy h3{margin:0 0 4px;font-size:15px;font-weight:700;color:#304d42}
+.bulk-easy-step p{margin:0 0 9px;font-size:12px;color:#607668}
+.bulk-file-label{display:block;background:#f0f8f7;border:1px dashed #89b8b0;border-radius:12px;padding:11px 14px;font-weight:700;color:#296b62;font-size:13px;cursor:pointer}
+.bulk-file-label input{display:block;margin:7px 0 0!important;max-width:100%}
+.bulk-easy-alternative{margin-top:11px;padding:6px 9px;background:#f9faf8;border:1px solid #e5eae4;border-radius:9px}
+.bulk-easy-alternative summary{cursor:pointer;font-size:12px;color:#466355;font-weight:700;padding:5px}
+.bulk-easy-alternative textarea{margin-top:8px}
+.bulk-easy-mappings{display:grid;gap:7px}
+.bulk-easy-maprow{display:grid;grid-template-columns:minmax(105px,1fr) 20px minmax(200px,2fr);align-items:center;gap:9px;padding:9px 11px;background:#f7faf7;border-radius:9px;border:1px solid #e7ede6}
+.bulk-easy-column{display:flex;flex-direction:column;gap:3px;min-width:0}
+.bulk-easy-column strong{color:#305446;font-size:13px;word-break:break-word}
+.bulk-easy-column small{color:#718073;font-size:11px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.bulk-easy-arrow{color:#74a293;text-align:center;font-size:19px}
+.bulk-easy select{font:12px/1.5 inherit;color:#29453a;width:100%;min-width:0;border:1px solid #cad9d1;border-radius:8px;background:white;padding:10px 7px}
+.bulk-easy-preview{width:min(100%,560px);border-radius:10px;background:#f0f2ef;padding:9px;border:1px solid #e2e8e1;margin-top:8px}
+.bulk-easy-preview canvas{display:block;max-width:100%;max-height:300px;width:auto;height:auto;margin:auto;box-shadow:0 4px 15px #314b3a29;background:white}
+.bulk-easy-person{margin:9px 0;color:#61766b;font-size:12px;line-height:1.5;white-space:normal}
+.bulk-easy-footer{border-top:1px solid #e5ebe5;padding-top:10px;margin-top:8px}
+.bulk-easy-actions{position:sticky;bottom:-22px;background:white;z-index:1;border-top:1px solid #e7eee8;padding-top:12px;padding-bottom:2px}
+@media(max-width:750px){.bulk-easy-workarea{grid-template-columns:1fr}.bulk-easy-preview canvas{max-height:270px}}
+@media(max-width:600px){.bulk-easy-maprow{grid-template-columns:1fr 20px;gap:3px}.bulk-easy-column{grid-column:1 / -1}.bulk-easy select{grid-column:1 / -1}.bulk-easy-arrow{display:none}.bulk-easy-actions{bottom:-14px}.bulk-easy-step{gap:7px}.bulk-easy-number{min-width:28px;height:28px}}
+
 </style>
 </head>
 <body>
@@ -1017,7 +1048,7 @@ button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-vis
  <main class="workspace">
   <div class="canvas-toolbar"><div class="toolbar-start"><span class="workspace-label">РАБОЧИЙ ЛИСТ</span><span class="toolbar-divider"></span><div class="history-buttons"><button id="undo" class="icon-btn" title="Отменить · Ctrl+Z" aria-label="Отменить"><svg><use href="#i-undo"/></svg></button><button id="redo" class="icon-btn" title="Повторить · Ctrl+Shift+Z" aria-label="Повторить"><svg><use href="#i-redo"/></svg></button></div></div><div class="view-tools"><span id="pageFormat">A4 · Альбомная</span><span class="toolbar-divider"></span><button id="zoomOut" class="icon-btn" aria-label="Уменьшить масштаб">−</button><button id="zoomFit" class="zoom-value" title="Вписать лист в окно">100%</button><button id="zoomIn" class="icon-btn" aria-label="Увеличить масштаб">+</button></div></div>
   <div id="stage" class="stage"><div class="paper-caption"><span>СОЗДАНО С ВНИМАНИЕМ К ДЕТАЛЯМ</span><span id="paperDimensions">297 × 210 мм</span></div><div id="paperWrap" class="paper-wrap"><canvas id="canvas" tabindex="0" aria-label="Предпросмотр диплома. Выберите слой в панели слева или перетаскивайте элементы на листе."></canvas></div><div class="canvas-tip"><span class="tip-cursor">↖</span>Перетаскивайте объекты. У картинки углы меняют размер, боковые точки растягивают её по ширине и высоте.</div></div>
-  <footer class="workspace-footer"><span><i class="live-dot"></i>Предпросмотр в реальном времени</span><button id="helpButton"><svg><use href="#i-help"/></svg>Как пользоваться</button><span>Сделано вами. Сохранено в PDF.</span></footer>
+  <footer class="workspace-footer"><span><i class="live-dot"></i>Предпросмотр в реальном времени</span><span>Сделано вами. Сохранено в PDF.</span></footer>
  </main>
 </div>
 <input id="backgroundInput" type="file" accept="image/png,image/jpeg,image/webp" hidden>
@@ -1032,13 +1063,22 @@ button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-vis
   </nav>
   <div class="guide-content">
    <section id="guide-start"><span class="guide-kicker">01 · НАЧАЛО РАБОТЫ</span><h3>Первая грамота за несколько шагов</h3><ol><li>Откройте <b>«Шаблоны»</b> и выберите оформление. Фоны внутри редактора, интернет для них не нужен.</li><li>Нажмите на текст на листе или во вкладке <b>«Слои»</b>, затем в разделе <b>«Свойства»</b> замените текст и настройте шрифт.</li><li>Во вкладке <b>«Добавить»</b> разместите новую надпись, картинку, наклейку или декоративную плашку.</li><li>Проверьте результат через <b>«Скачать» → «Проверить перед печатью»</b>, затем выберите в этом же меню <b>«Сохранить PDF»</b>.</li></ol><p class="guide-tip">На листе объект двигается мышью или пальцем. Для настройки достаточно выделить его: панель «Свойства» откроется автоматически.</p></section>
-   <section id="guide-interface"><span class="guide-kicker">02 · ИНТЕРФЕЙС</span><h3>Где искать инструменты</h3><dl><dt>Добавить</dt><dd>Текст, линии, фигуры, изображения и подложки. Переключатели «Основное / Наклейки / Плашки» открывают нужную коллекцию без длинной прокрутки.</dd><dt>Шаблоны</dt><dd>38 встроенных красивых оформлений: математические, новогодние, детские, эстетические и основные. Есть поиск и категории.</dd><dt>Слои</dt><dd>Все надписи, рисунки и фигуры в порядке наложения; можно выбрать и скрыть.</dd><dt>Свойства</dt><dd>Настройки выбранного элемента. Подразделы зависят от типа: для текста — эффекты и подложка; для фото — кадр, фильтры, рамка.</dd><dt>Лист</dt><dd>Формат A4, ориентация, собственный фон, бумага, экспорт и массовые грамоты.</dd><dt>Справка</dt><dd>Внизу левого меню: подробная инструкция по функциям редактора.</dd><dt>Сброс</dt><dd>Кнопка под «Справкой» возвращает исходный документ. Перед сбросом появится подтверждение; действие можно отменить Ctrl+Z.</dd></dl></section>
+   <section id="guide-interface"><span class="guide-kicker">02 · ИНТЕРФЕЙС</span><h3>Где искать инструменты</h3><dl><dt>Добавить</dt><dd>Текст, линии, фигуры, изображения и подложки. Переключатели «Основное / Наклейки / Плашки» открывают нужную коллекцию без длинной прокрутки.</dd><dt>Шаблоны</dt><dd>38 встроенных красивых оформлений: математические, новогодние, детские, эстетические и основные. Есть поиск и категории.</dd><dt>Слои</dt><dd>Все надписи, рисунки и фигуры в порядке наложения; можно выбрать и скрыть.</dd><dt>Свойства</dt><dd>Настройки выбранного элемента. Подразделы зависят от типа: для текста — эффекты и подложка; для фото — кадр, фильтры, рамка.</dd><dt>Лист</dt><dd>Формат A4, ориентация, цвет бумаги, собственный фон и массовое создание грамот. PDF, PNG, JPG и проверка печати доступны через кнопку «Скачать» в правом верхнем углу.</dd><dt>Справка</dt><dd>Внизу левого меню: подробная инструкция по функциям редактора.</dd><dt>Сброс</dt><dd>Кнопка под «Справкой» возвращает исходный документ. Перед сбросом появится подтверждение; действие можно отменить Ctrl+Z.</dd></dl></section>
    <section id="guide-templates"><span class="guide-kicker">03 · ОФОРМЛЕНИЕ</span><h3>Шаблоны и фон листа</h3><p>В <b>«Шаблонах»</b> выберите нужную категорию или введите слово в поиск. Нажмите на миниатюру — рисунок применится, а размещённые тексты и картинки останутся на листе. Если у вас уже установлен собственный фон, редактор попросит подтвердить замену.</p><p>Раздел <b>«Лист»</b>: выберите книжную или альбомную ориентацию A4, установите цвет бумаги, загрузите собственный PNG/JPG/WebP как фон. Опция <b>«Вписать»</b> сохраняет изображение целиком, <b>«Заполнить»</b> покрывает весь лист с возможной обрезкой краёв. Можно менять прозрачность фонового изображения или удалить его.</p><p class="guide-tip">Не путайте фон листа и отдельную картинку: фон заполняет страницу, а картинка добавляется самостоятельным слоем и двигается по грамоте.</p></section>
    <section id="guide-text"><span class="guide-kicker">04 · НАДПИСИ</span><h3>Текст, подложки и фигурные надписи</h3><p>Нажмите <b>«Добавить» → «Текст»</b> или выберите существующую надпись. В <b>«Свойства» → «Текст»</b> изменяйте содержание, шрифт, размер, начертание, выравнивание, цвет и межстрочный интервал.</p><p>В <b>«Эффекты»</b> можно выбрать золотую, серебряную и другие градиентные заливки, контур букв, тень. Переключатель «Расположение» позволяет пустить текст по дуге вверх, по дуге вниз или по кругу; настройте угол дуги.</p><p>В <b>«Подложке»</b> доступны светлая или тёмная плашка, лента, маркер, облачко, рамка, овал и другие формы, а также цвета и прозрачность. Плашка перемещается вместе с надписью. В <b>«Положении»</b> — размер, координаты, поворот, порядок слоёв и блокировка.</p></section>
    <section id="guide-images"><span class="guide-kicker">05 · ФОТО И ИЛЛЮСТРАЦИИ</span><h3>Загрузка и работа с картинкой</h3><p>Откройте <b>«Добавить» → «Загрузить картинку»</b>, выберите PNG/JPG/WebP или перетащите файл на лист. Объект появится отдельным слоем.</p><ol><li>Перетаскивайте картинку по листу. <b>Углы</b> изменяют размер с сохранением пропорций, боковые и верхние точки растягивают по одной оси.</li><li>В <b>«Свойства» → «Кадр»</b> нажмите «Кадрировать», двигайте рамку и тяните её за восемь точек. Есть свободная обрезка и форматы 1:1, 4:3, 3:4, 16:9, 9:16. Обрезка обратима.</li><li>Там же выберите форму: круг, овал, сердце, звезда, шестиугольник или скруглённые углы.</li><li>В <b>«Фильтрах»</b> меняйте яркость, контрастность, насыщенность, прозрачность, размытие, оттенок, сепию и чёрно-белое отображение; можно отражать изображение по осям.</li><li>В <b>«Рамке»</b> настройте обводку и тень, сбросьте эффекты или поместите картинку под текст.</li></ol></section>
    <section id="guide-background"><span class="guide-kicker">06 · УДАЛЕНИЕ ФОНА</span><h3>Прозрачный фон вокруг персонажа</h3><p>Выберите загруженную картинку, затем <b>«Свойства» → «Кадр» → «Удалить фон картинки»</b>. В открывшемся окне слева показан оригинал, справа — результат. Автоматический режим определяет цвет фона по краям. Если он ошибся, выберите режим <b>«Выбрать цвет щелчком»</b> и нажмите на фон слева.</p><p>Отрегулируйте <b>чувствительность</b> и <b>смягчение краёв</b>; нажмите «Применить удаление». Пока исходник сохранён, можно нажать «Вернуть исходный фон». Этот инструмент удаляет похожие цвета, а не использует нейросеть, поэтому лучше всего подходит для однотонного фона.</p></section>
    <section id="guide-layers"><span class="guide-kicker">07 · СЛОИ И УКРАШЕНИЯ</span><h3>Порядок и управление элементами</h3><p><b>«Добавить» → «Наклейки»</b> содержит встроенные кубки, медали, школьные и праздничные рисунки. В <b>«Плашках»</b> — фигуры, линии, рамки, ленты и декоративные элементы.</p><p>Во вкладке <b>«Слои»</b> верхняя строка означает элемент ближе к переднему плану. Нажмите на слой, чтобы перейти в его свойства, или на значок глаза, чтобы скрыть. В «Свойства» доступны «Вперёд», «Назад», «Дублировать», «Удалить», «Закрепить» и «По центру листа». Скрытые и закреплённые элементы сохраняются в проекте.</p></section>
-   <section id="guide-bulk"><span class="guide-kicker">08 · ДЛЯ КЛАССА</span><h3>Массовое создание грамот из таблицы</h3><ol><li>Создайте одну грамоту с оформлением и вставьте в её текст заменяемые поля, например <code>{{ФИО}}</code>, <code>{{Класс}}</code>, <code>{{Место}}</code>, <code>{{Номинация}}</code>.</li><li>Составьте таблицу в Excel: первая строка содержит заголовки столбцов <b>ФИО, Класс, Место, Номинация</b>, каждая следующая строка — один ученик.</li><li>Откройте кнопку <b>«Список»</b> сверху или <b>«Лист» → «Массовые грамоты»</b>. Загрузите XLSX/CSV/TSV либо вставьте таблицу из Excel.</li><li>Проверьте распознанные строки и нажмите <b>«Создать PDF для всех»</b>. Получится один PDF, одна страница на ученика. Лимит текущей версии — <b>80 учеников</b> за раз.</li></ol><p class="guide-tip">Название внутри фигурных скобок должно совпадать с заголовком столбца; пробелы и опечатки могут помешать замене. Текст, который не содержит переменных, останется общим для всех грамот.</p></section>
+   <section id="guide-bulk"><span class="guide-kicker">08 · ДЛЯ КЛАССА</span><h3>Грамоты для всего класса — без формул и скобок</h3>
+    <ol>
+     <li>Оформите одну грамоту с обычным примером имени ученика, например «Александра Смирнова». Другой текст и украшения оставьте как нужно.</li>
+     <li>В Excel сделайте таблицу: в первой строке напишите названия столбцов <b>ФИО, Класс, Место, Номинация</b>, ниже — данные учеников. Таблица может начинаться с любого столбца, например с B.</li>
+     <li>Нажмите <b>«Список»</b> вверху редактора, затем <b>«Выбрать Excel или CSV»</b> и откройте файл <b>.xlsx</b> или <b>.csv</b>. Либо раскройте «Или вставить скопированные ячейки из Excel», вставьте диапазон вместе с заголовками и нажмите «Использовать таблицу».</li>
+     <li>Когда список прочитается, под ним появятся столбцы из Excel. Напротив каждого выберите существующую <b>надпись на грамоте</b>, которую нужно заменить (например, ФИО → «Александра Смирнова»). Ненужные столбцы оставьте как «Не вставлять».</li>
+     <li>Проверьте <b>предпросмотр первой грамоты</b> справа и нажмите <b>«Скачать все грамоты (PDF)»</b>. Получится один PDF — по странице на ученика, до 80 учеников.</li>
+    </ol>
+    <p class="guide-tip"><b>Ничего не нужно писать в фигурных скобках!</b> Редактор попробует автоматически подобрать поле для ФИО. Если таблица не загрузилась, проверьте, что первая заполненная строка содержит названия столбцов, и попробуйте вставить её через буфер обмена. Старый способ с <code>{{ФИО}}</code> тоже поддерживается, но не обязателен.</p>
+   </section>
    <section id="guide-print"><span class="guide-kicker">09 · ГОТОВЫЙ ДОКУМЕНТ</span><h3>Печать и экспорт</h3><p>Нажмите <b>«Скачать»</b> в правом верхнем углу и выберите <b>«Сохранить PDF»</b> для печати на одном листе A4, <b>«Сохранить PNG»</b> для изображения без потери качества или <b>«Сохранить JPG»</b> для отправки. В том же меню находится <b>«Проверить перед печатью»</b>. Проверка предупреждает о выходе объектов за безопасные поля, небольшом тексте и недостаточном разрешении пользовательских картинок; предупреждения не запрещают экспорт.</p><p>Если нужен тираж, используйте многостраничный PDF из Excel. Для печати дома или в типографии проверьте ориентацию листа в настройках принтера и выберите масштаб 100% либо «По размеру страницы» в зависимости от требований принтера.</p></section>
    <section id="guide-files"><span class="guide-kicker">10 · ПРОЕКТЫ</span><h3>Сохранение, открытие и восстановление</h3><p>Кнопка <b>«Сохранить проект»</b> скачивает редактируемый файл <code>.diploma.json</code> с расположением слоёв, текстом, шаблоном и загруженными картинками. Кнопка <b>«Открыть проект»</b> загружает такой файл обратно. PDF, PNG и JPG предназначены для просмотра/печати, а не повторного редактирования.</p><p>Черновик обычно сохраняется локально в браузере, но может исчезнуть при очистке данных сайта или из-за ограничений хранилища. Поэтому для важных грамот регулярно скачивайте проект отдельно. Загрузка и обработка изображений происходят в браузере, без отправки на сервер редактора.</p><p><b>«Сброс» слева под «Справкой»</b> отменяет все правки текущего документа и возвращает его к виду на момент последнего открытия редактора, загрузки проекта или создания пустого листа. Восстанавливаются шаблон, надписи, рисунки, фон и настройки. Перед сбросом появится подтверждение. Если сбросили случайно, сразу нажмите <b>Ctrl+Z</b> или кнопку отмены над листом. <b>«Создать пустой документ»</b> — другое действие: оно начинает новый чистый лист.</p></section>
    <section id="guide-shortcuts"><span class="guide-kicker">11 · ПОДСКАЗКИ</span><h3>Горячие клавиши и решения проблем</h3><dl><dt>Ctrl + Z / Ctrl + Shift + Z</dt><dd>Отменить и повторить действие (можно также использовать кнопки со стрелками над листом).</dd><dt>Ctrl + D</dt><dd>Дублировать выделенный объект.</dd><dt>Delete / Backspace</dt><dd>Удалить выделенный объект, если вы не редактируете текст в поле ввода.</dd><dt>Shift при перетаскивании</dt><dd>Перемещать объект только по горизонтали либо вертикали.</dd><dt>Картинка слишком тёмная</dt><dd>Откройте «Свойства» → «Фильтры», восстановите яркость, контрастность и прозрачность.</dd><dt>Не видно текст на фоне</dt><dd>Используйте «Подложка» и выберите светлую/тёмную плашку; убедитесь, что картинка находится позади текста.</dd><dt>Изображение выглядит обрезанным</dt><dd>Проверьте кадрирование картинки или переключите заполнение фонового листа с «Заполнить» на «Вписать».</dd><dt>Сайт не обновился после загрузки нового index.html</dt><dd>Обновите GitHub Pages и перезагрузите страницу с очисткой кеша (Ctrl + F5). Сохраните рабочий проект перед заменой сайта.</dd></dl></section>
@@ -1075,19 +1115,24 @@ button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-vis
  <div class="crop-actions"><button type="button" id="cropFull">Выбрать всё</button><button type="button" id="cropCancel">Отмена</button><button type="button" id="cropApply" class="primary">Применить обрезку</button></div>
 </dialog>
 
-<dialog id="bulkDialog" class="studio-dialog" aria-labelledby="bulkTitle">
- <h2 id="bulkTitle">Массовое создание грамот</h2>
- <p>В тексте грамоты укажите поля <b>{{ФИО}}</b>, <b>{{Класс}}</b>, <b>{{Место}}</b>, <b>{{Номинация}}</b> или другие названия столбцов. Они автоматически заменятся данными каждого ученика.</p>
- <div class="studio-options"><button id="bulkInsertName" type="button">Вставить {{ФИО}} в выделенный текст</button><button id="bulkSample" type="button">Показать пример таблицы</button></div>
- <label class="field">Загрузить Excel (.xlsx) или CSV/TSV (.csv/.tsv)<input id="bulkFile" type="file" accept=".xlsx,.csv,.tsv,text/csv,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"></label>
- <label class="field">Или вставить таблицу из Excel (первая строка — заголовки)<textarea id="bulkPaste" spellcheck="false" placeholder="ФИО	Класс	Место
+<dialog id="bulkDialog" class="studio-dialog bulk-easy" aria-labelledby="bulkTitle">
+ <h2 id="bulkTitle">Грамоты для всего класса</h2>
+ <p class="bulk-easy-intro">Загрузите список учеников, укажите, какие надписи менять, и скачайте готовые грамоты. <b>Фигурные скобки писать не нужно.</b></p>
+ <div class="bulk-easy-step"><strong class="bulk-easy-number">1</strong><div class="bulk-easy-step-content"><h3>Загрузите список из Excel</h3><p>Первая строка — названия столбцов: ФИО, Класс, Место, Номинация. Данные могут начинаться с любого столбца листа.</p>
+ <label class="bulk-file-label">Выбрать Excel или CSV <input id="bulkFile" type="file" accept=".xlsx,.csv,.tsv,text/csv,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"></label>
+ <details class="bulk-easy-alternative"><summary>Или вставить скопированные ячейки из Excel</summary><textarea id="bulkPaste" spellcheck="false" placeholder="ФИО	Класс	Место
 Анна Иванова	5А	I место
-Пётр Петров	5Б	II место"></textarea></label>
- <button id="bulkReadPaste" type="button">Использовать вставленную таблицу</button>
- <div id="bulkStatus" class="studio-data-status" role="status">Таблица ещё не загружена.</div>
- <div id="bulkPreview" class="studio-preview" hidden></div>
- <p><b>Результат:</b> один многостраничный PDF, по одной грамоте на ученика. Данные обрабатываются в браузере, без передачи на сервер. До 80 учеников за один экспорт.</p>
- <div class="studio-row-actions"><button type="button" id="bulkCancel">Отмена</button><button class="primary" type="button" id="bulkExport" disabled>Создать PDF для всех</button></div>
+Пётр Петров	5Б	II место"></textarea><div class="studio-options"><button id="bulkReadPaste" type="button">Использовать таблицу</button><button id="bulkSample" type="button">Загрузить пример</button></div></details>
+ </div></div>
+ <div id="bulkStatus" class="studio-data-status" role="status">Выберите файл Excel или вставьте таблицу.</div>
+ <section id="bulkMappingSection" hidden>
+  <div class="bulk-easy-workarea"><div class="bulk-easy-step"><strong class="bulk-easy-number">2</strong><div class="bulk-easy-step-content"><h3>Укажите, какие надписи менять</h3><p>Слева — столбец Excel, справа — надпись, которая уже есть на грамоте. Для ненужных столбцов оставьте «Не вставлять».</p><div id="bulkMapRows" class="bulk-easy-mappings"></div>
+  <details class="bulk-easy-alternative"><summary>Дополнительно: подстановка внутри фраз</summary><p>Если в тексте уже используются поля вида <code>{{ФИО}}</code>, они тоже работают. Использовать их необязательно.</p></details>
+  </div></div>
+  <div class="bulk-easy-step"><strong class="bulk-easy-number">3</strong><div class="bulk-easy-step-content"><h3>Проверьте первую грамоту</h3><div class="bulk-easy-preview"><canvas id="bulkPagePreview" width="560" height="396" aria-label="Предпросмотр первой грамоты"></canvas></div><div id="bulkPreview" class="bulk-easy-person" hidden></div></div></div>
+  </div><p class="bulk-easy-footer">Получится один многостраничный PDF — по странице на ученика. До 80 учеников за раз. Данные обрабатываются только в браузере.</p>
+ </section>
+ <div class="studio-row-actions bulk-easy-actions"><button type="button" id="bulkCancel">Закрыть</button><button class="primary" type="button" id="bulkExport" disabled>Скачать все грамоты (PDF)</button></div>
 </dialog>
 <dialog id="printDialog" class="studio-dialog" aria-labelledby="printTitle">
  <h2 id="printTitle">Проверка перед печатью</h2><p>Проверяем поля листа, размеры текста и разрешение пользовательских изображений. Предупреждения не блокируют экспорт.</p>
@@ -2301,7 +2346,7 @@ $$('[data-insert-group]').forEach(btn=>btn.onclick=()=>{
 $('#templateSearch').addEventListener('input',e=>{templateSearch=e.target.value.trim().toLocaleLowerCase('ru');renderTemplateGallery();});
 
 function buildPageSections(){
- const root=$('#tab-page');const parts=[['format','Формат'],['background','Фон'],['output','Экспорт']];
+ const root=$('#tab-page');const parts=[['format','Формат'],['background','Фон']];
  const children=[...root.children];const nav=document.createElement('div');nav.className='local-switch page-switch';nav.setAttribute('role','tablist');
  const panes={};
  for(const [key,label] of parts){const b=document.createElement('button');b.type='button';b.textContent=label;b.dataset.pageGroup=key;b.setAttribute('role','tab');nav.append(b);const el=document.createElement('div');el.className='page-pane';el.dataset.pagePane=key;panes[key]=el;root.append(el);}
@@ -2309,7 +2354,6 @@ function buildPageSections(){
  let part='format';
  for(const el of children){
   if(el.id==='uploadBackground'||(el.classList.contains('section-head')&&el.querySelector('h2')?.textContent==='Ваш фон'))part='background';
-  if(el.id==='openPrintCheck')part='output';
   if(el.classList.contains('divider')){el.remove();continue;}
   if(el.id==='pageColor')part='background';
   if(el.matches('.field')&&el.querySelector('#pageColor'))part='background';
@@ -2345,7 +2389,7 @@ $('#pageColor').oninput=e=>{edit(()=>state.page.color=e.target.value);$('#pageCo
 $('#projectTitle').oninput=e=>edit(()=>state.title=e.target.value);$('#projectTitle').onchange=finishPending;
 $('#clearPage').onclick=async()=>{if(await confirmAction('Создать пустой документ?','Все элементы и фон будут удалены. Сохраните проект в файл, если хотите вернуться к нему.','Создать')){change(()=>{state={format:'list-certificate',version:1,title:'Новый диплом',orientation:state.orientation,page:{color:'#ffffff',design:'blank',background:null,fit:'contain',backgroundOpacity:1},objects:[]};selected=null;setBackgroundImage(null);});markInitialDocument();}};
 $('#openProject').onclick=()=>$('#projectInput').click();$('#projectInput').onchange=e=>{importProject(e.target.files[0]);e.target.value='';};$('#saveProject').onclick=saveProject;$('#exportPDF').onclick=exportPDF;
-$('#undo').onclick=()=>undo();$('#redo').onclick=()=>undo(true);$('#zoomIn').onclick=()=>{zoom=Math.min(3,zoom+.2);resize();};$('#zoomOut').onclick=()=>{zoom=Math.max(.3,zoom-.2);resize();};$('#zoomFit').onclick=()=>{zoom=1;resize();};$('#helpButton').onclick=()=>$('#helpDialog').showModal();$$('[data-close]').forEach(el=>el.onclick=()=>el.closest('dialog').close());
+$('#undo').onclick=()=>undo();$('#redo').onclick=()=>undo(true);$('#zoomIn').onclick=()=>{zoom=Math.min(3,zoom+.2);resize();};$('#zoomOut').onclick=()=>{zoom=Math.max(.3,zoom-.2);resize();};$('#zoomFit').onclick=()=>{zoom=1;resize();};$$('[data-close]').forEach(el=>el.onclick=()=>el.closest('dialog').close());
 document.addEventListener('keydown',e=>{if(document.querySelector('dialog[open]'))return;const input=e.target.closest?.('input,textarea,select,[contenteditable]'),mod=e.ctrlKey||e.metaKey,key=e.key.toLowerCase();if(mod&&key==='s'){e.preventDefault();saveProject();return;}if(input)return;if(mod&&key==='z'){e.preventDefault();undo(e.shiftKey);return;}if(mod&&key==='y'){e.preventDefault();undo(true);return;}if(mod&&key==='d'){e.preventDefault();perform('duplicate');return;}const o=getSelected();if(e.key==='Escape'){select(null);return;}if(!o||o.locked)return;if(e.key==='Delete'||e.key==='Backspace'){e.preventDefault();perform('delete');return;}const movement={ArrowLeft:[-1,0],ArrowRight:[1,0],ArrowUp:[0,-1],ArrowDown:[0,1]}[e.key];if(movement){e.preventDefault();change(()=>{const step=e.shiftKey?10:1;o.x=C.clamp(o.x+movement[0]*step,-4000,4000);o.y=C.clamp(o.y+movement[1]*step,-4000,4000);});}});
 for(const name of ['dragenter','dragover'])stage.addEventListener(name,e=>{e.preventDefault();stage.classList.add('drag-over');});stage.addEventListener('dragleave',e=>{if(!stage.contains(e.relatedTarget))stage.classList.remove('drag-over');});stage.addEventListener('drop',e=>{e.preventDefault();stage.classList.remove('drag-over');const file=e.dataTransfer.files[0];if(file?.name.toLowerCase().endsWith('.json'))importProject(file);else if(file&&!e.shiftKey)loadObjectImage(file);else loadBackground(file);});
 document.addEventListener('focusout',e=>{if(e.target.matches('[data-prop],#projectTitle'))finishPending();});
@@ -2402,11 +2446,18 @@ function csvRows(content){
  return out;
 }
 function bulkFromCells(rows){
- if(!rows.length)throw Error('Таблица пустая.');
- const headers=rows[0].map(x=>String(x).trim());
- if(headers.some(h=>!h))throw Error('В первой строке должны быть названия всех заполненных столбцов.');
- if(new Set(headers.map(x=>x.toLowerCase())).size!==headers.length)throw Error('В таблице повторяются названия столбцов.');
- const records=rows.slice(1).filter(row=>row.some(x=>String(x||'').trim())).map(row=>Object.fromEntries(headers.map((h,i)=>[h,String(row[i]??'').trim()])));
+ // Skip empty rows and completely empty outer columns (e.g. headers begin at B1).
+ const source=rows.filter(row=>row.some(x=>String(x??'').trim()));
+ if(!source.length)throw Error('Таблица пустая. Добавьте заголовки и учеников.');
+ const first=source[0];const selected=first.map((x,i)=>String(x??'').trim()?i:-1).filter(i=>i>=0);
+ if(!selected.length)throw Error('Не найдены названия столбцов.');
+ // Blank columns in the middle are harmless unless they contain values below.
+ const min=selected[0],max=selected[selected.length-1];
+ for(let i=min;i<=max;i++)if(!String(first[i]??'').trim()&&source.slice(1).some(r=>String(r[i]??'').trim()))
+    throw Error('У заполненного столбца нет названия в первой строке.');
+ const headers=selected.map(i=>String(first[i]).trim());
+ if(new Set(headers.map(x=>x.toLocaleLowerCase('ru'))).size!==headers.length)throw Error('В таблице повторяются названия столбцов.');
+ const records=source.slice(1).filter(row=>selected.some(i=>String(row[i]??'').trim())).map(row=>Object.fromEntries(headers.map((h,j)=>[h,String(row[selected[j]]??'').trim()])));
  if(!records.length)throw Error('В таблице нет учеников.');
  if(records.length>80)throw Error('За один раз можно создать до 80 грамот. Разделите список на части.');
  return {headers,records};
@@ -2454,19 +2505,105 @@ async function xlsxRows(file){
  }
  return rows;
 }
-function updateBulk(table){bulkTable=table;const status=$('#bulkStatus'),preview=$('#bulkPreview');
- if(!table){status.textContent='Таблица ещё не загружена.';preview.hidden=true;$('#bulkExport').disabled=true;return;}
- status.textContent=`Ученики: ${table.records.length}\nСтолбцы: ${table.headers.join(', ')}`;
- const markers=[...new Set(state.objects.filter(o=>o.type==='text').flatMap(o=>Array.from(o.text.matchAll(/\{\{\s*([^{}]+?)\s*\}\}/g),m=>m[1])))];
- const missing=markers.filter(x=>!table.headers.some(h=>h.toLocaleLowerCase('ru')===x.toLocaleLowerCase('ru')));
- status.textContent+=`\nПоля в грамоте: ${markers.join(', ')||'(пока отсутствуют)'}`+(missing.length?'\n⚠ Нет столбцов: '+missing.join(', '):'');
- preview.hidden=false;preview.textContent='Пример первой строки:\n'+table.headers.map(h=>h+': '+(table.records[0][h]||'—')).join('\n');$('#bulkExport').disabled=missing.length>0||markers.length===0;
+// Simple, visual mail merge: link an Excel column to an existing text layer.
+let bulkAssignments={},bulkPreviewRevision=0;
+const bulkNormal=s=>String(s||'').toLocaleLowerCase('ru').replace(/ё/g,'е').replace(/[\s._-]/g,'');
+function bulkSampleText(o){return String(o.text||'').replace(/\s+/g,' ').trim().slice(0,72)||'Пустая надпись';}
+function bulkAllText(){return state.objects.filter(o=>o.type==='text'&&!o.hidden&&!o.locked);}
+function suggestBulkTargets(table){
+ const objects=bulkAllText();const used=new Set();const result={};
+ for(const header of table.headers){
+  const h=bulkNormal(header);let candidates=[];
+  for(const o of objects){
+   const val=String(o.text||'').trim(),v=bulkNormal(val);let score=0;
+   if(used.has(o.id))continue;
+   if(v.includes('{{'+h+'}}'))continue; // already automatically replaced by tokens
+   if(h.includes('фио')||h.includes('фамили')||h.includes('имя')){
+    if(/^[А-ЯЁ][а-яё]+(?:[ -][А-ЯЁ][а-яё]+){1,2}$/.test(val))score+=110;
+    if(/фамили|ученик|полное имя/i.test(val))score+=60;
+    if(/диплом|грамота|награ|руководитель|жюри|2026/i.test(val))score-=180;
+    if(o.fontSize>=32)score+=10;
+   }else if(h.includes('класс')){
+    if(/\b\d{1,2}\s*[А-ЯA-Zа-яa-z]\b/.test(val))score+=90;
+    if(/класс/i.test(val))score+=30;
+   }else if(h.includes('мест')||h.includes('степен')){
+    if(/\b(?:i{1,3}|[123])\s*(?:место|степень)|место|победител|призер|призёр/i.test(val))score+=70;
+   }else if(h.includes('номинац')||h.includes('конкурс')||h.includes('мероприят')){
+    if(/олимпиад|конкурс|номинац|викторин|турнир|соревнован/i.test(val))score+=70;
+   }else if(v.includes(h))score+=45;
+   if(score>0)candidates.push({id:o.id,score});
+  }
+  candidates.sort((a,b)=>b.score-a.score);
+  if(candidates.length&&candidates[0].score>=60){result[header]=candidates[0].id;used.add(candidates[0].id);}
+ }
+ return result;
+}
+function bulkMergedDocument(record){
+ const doc=C.clone(state);const targets=new Map(Object.entries(bulkAssignments).filter(([,id])=>id).map(([h,id])=>[id,h]));
+ for(const o of doc.objects){if(o.type!=='text')continue;
+  if(targets.has(o.id)){o.text=String(record[targets.get(o.id)]??'');}else o.text=interpolateFields(o.text,record);
+ }
+ return doc;
+}
+function bulkMarkersOk(){
+ if(!bulkTable)return false;
+ const available=new Set(bulkTable.headers.map(x=>bulkNormal(x)));
+ const assignedIds=new Set(Object.values(bulkAssignments).filter(Boolean));
+ const names=[...new Set(state.objects.filter(o=>o.type==='text'&&!assignedIds.has(o.id)).flatMap(o=>Array.from(o.text.matchAll(/\{\{\s*([^{}]+?)\s*\}\}/g),m=>m[1])))];
+ const missing=names.filter(x=>!available.has(bulkNormal(x)));
+ if(missing.length){$('#bulkStatus').textContent=`В грамоте есть поля без столбцов Excel: ${missing.join(', ')}. Проверьте названия.`;return false;}
+ return Object.values(bulkAssignments).some(Boolean)||names.length>0;
+}
+function renderBulkMappings(){
+ const host=$('#bulkMapRows');host.replaceChildren();
+ if(!bulkTable)return;
+ const textObjects=bulkAllText();
+ for(const header of bulkTable.headers){
+  const line=document.createElement('div');line.className='bulk-easy-maprow';
+  const left=document.createElement('div');left.className='bulk-easy-column';
+  const name=document.createElement('strong');name.textContent=header;
+  const sample=document.createElement('small');sample.textContent=String(bulkTable.records[0]?.[header]??'')||'—';left.append(name,sample);
+  const sel=document.createElement('select');sel.className='bulk-easy-select';sel.setAttribute('aria-label','Надпись для столбца '+header);
+  sel.add(new Option('Не вставлять',''));
+  for(const o of textObjects)sel.add(new Option('«'+bulkSampleText(o)+'»',o.id));
+  sel.value=bulkAssignments[header]||'';
+  sel.onchange=()=>{
+   if(sel.value){for(const key of Object.keys(bulkAssignments))if(key!==header&&bulkAssignments[key]===sel.value)bulkAssignments[key]='';}
+   bulkAssignments[header]=sel.value;
+   renderBulkMappings();refreshBulkPreview();
+  };
+  const arrow=document.createElement('span');arrow.className='bulk-easy-arrow';arrow.textContent='→';
+  line.append(left,arrow,sel);host.append(line);
+ }
+}
+async function refreshBulkPreview(){
+ const revision=++bulkPreviewRevision;
+ const button=$('#bulkExport');button.disabled=!bulkMarkersOk();
+ if(!bulkTable)return;
+ const preview=$('#bulkPreview');preview.hidden=false;
+ preview.textContent='Первый ученик: '+bulkTable.headers.map(h=>bulkTable.records[0][h]).filter(Boolean).join(' · ');
+ const canvas=$('#bulkPagePreview');const d=C.dims(state.orientation);canvas.width=560;canvas.height=Math.round(560*d.h/d.w);
+ const c=canvas.getContext('2d');c.fillStyle='#fff';c.fillRect(0,0,canvas.width,canvas.height);
+ try{
+  const doc=bulkMergedDocument(bulkTable.records[0]);
+  await loadDocumentResources(doc);
+  if(revision!==bulkPreviewRevision)return;
+  c.save();c.scale(canvas.width/d.w,canvas.height/d.h);
+  renderDocument(c,true,doc,backgroundImage,backgroundSource);c.restore();
+ }catch(e){if(revision===bulkPreviewRevision)preview.textContent+=' · Предпросмотр недоступен: '+(e.message||e);}
+}
+function updateBulk(table){
+ bulkTable=table;bulkAssignments={};++bulkPreviewRevision;
+ const status=$('#bulkStatus');const section=$('#bulkMappingSection');
+ if(!table){section.hidden=true;status.textContent='Выберите файл Excel или вставьте таблицу.';$('#bulkExport').disabled=true;return;}
+ status.textContent=`✓ Загружено учеников: ${table.records.length}. Найдены столбцы: ${table.headers.join(', ')}.`;
+ section.hidden=false;bulkAssignments=suggestBulkTargets(table);
+ renderBulkMappings();refreshBulkPreview();
 }
 function openBulkDialog(){updateBulk(null);$('#bulkPaste').value='';$('#bulkFile').value='';bulkDialog.showModal();}
 $('#openBatch').onclick=openBulkDialog;$('#toolbarBatch').onclick=openBulkDialog;
 $('#bulkCancel').onclick=()=>bulkDialog.close();
 $('#bulkSample').onclick=()=>{$('#bulkPaste').value='ФИО\tКласс\tМесто\tНоминация\nАнна Иванова\t5А\tI место\tМатематическая олимпиада\nПётр Петров\t5Б\tII место\tМатематическая олимпиада';updateBulk(bulkFromCells(csvRows($('#bulkPaste').value)));};
-$('#bulkInsertName').onclick=()=>{const o=getSelected();if(!o||o.type!=='text'||o.locked){$('#bulkStatus').textContent='Сначала выделите текстовое поле на грамоте.';return;}change(()=>o.text='{{ФИО}}');updateBulk(bulkTable);$('#bulkStatus').textContent+='\nПоле ФИО вставлено в выделенную надпись.';};
 $('#bulkReadPaste').onclick=()=>{try{updateBulk(bulkFromCells(csvRows($('#bulkPaste').value)));}catch(e){updateBulk(null);$('#bulkStatus').textContent=e.message;}};
 $('#bulkFile').onchange=async e=>{const f=e.target.files?.[0];if(!f)return;$('#bulkStatus').textContent='Читаем таблицу...';try{if(f.size>6e6)throw Error('Excel или CSV должен быть меньше 6 МБ.');const rows=f.name.toLowerCase().endsWith('.xlsx')?await xlsxRows(f):csvRows(await f.text());updateBulk(bulkFromCells(rows));}catch(err){updateBulk(null);$('#bulkStatus').textContent=err.message||String(err);} };
 function interpolateFields(str,row){const keys=Object.keys(row),map=new Map(keys.map(k=>[k.toLocaleLowerCase('ru'),row[k]]));return str.replace(/\{\{\s*([^{}]+?)\s*\}\}/g,(all,name)=>map.has(name.trim().toLocaleLowerCase('ru'))?map.get(name.trim().toLocaleLowerCase('ru')):all);}
@@ -2477,11 +2614,11 @@ async function loadDocumentResources(doc){
  await Promise.all(doc.objects.filter(o=>o.type==='image'&&!o.hidden).map(async o=>{const pic=getObjectImage(o.src);if(!pic.complete||!pic.naturalWidth)await pic.decode();}));
 }
 $('#bulkExport').onclick=async()=>{
- if(!bulkTable||busy)return;finishPending();busy=true;const button=$('#bulkExport');button.disabled=true;
+ if(!bulkTable||busy||!bulkMarkersOk())return;finishPending();busy=true;const button=$('#bulkExport');button.disabled=true;
  try{const snapshot=C.clone(state),records=bulkTable.records;await loadDocumentResources(snapshot);
   const dim=C.dims(snapshot.orientation),ratio=200/96,pages=[];
   for(let i=0;i<records.length;i++){
-   const doc=C.clone(snapshot);for(const o of doc.objects)if(o.type==='text')o.text=interpolateFields(o.text,records[i]);
+   const doc=bulkMergedDocument(records[i]);
    const cv=document.createElement('canvas');cv.width=Math.round(dim.w*ratio);cv.height=Math.round(dim.h*ratio);
    const ctx=cv.getContext('2d');ctx.scale(ratio,ratio);renderDocument(ctx,true,doc,backgroundImage,backgroundSource);
    const jpeg=await DiplomaPDF.canvasJPEG(cv,.92);pages.push({jpeg,width:cv.width,height:cv.height});cv.width=cv.height=1;
@@ -2491,7 +2628,7 @@ $('#bulkExport').onclick=async()=>{
   const pdf=await DiplomaPDF.createBatch(pages,snapshot.orientation);download(pdf,filename(snapshot.title)+' — список ('+records.length+').pdf');
   $('#bulkStatus').textContent=`Готово! ${records.length} персональных грамот в одном PDF.`;toast('Скачан многостраничный PDF: '+records.length+' грамот.');
  }catch(e){$('#bulkStatus').textContent='Ошибка: '+(e.message||e);toast('Не удалось создать массовые грамоты.');}
- finally{busy=false;button.disabled=false;}
+ finally{busy=false;button.disabled=!bulkMarkersOk();}
 };
 
 // One-page image export and print preflight.
